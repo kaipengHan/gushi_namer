@@ -20,7 +20,7 @@ function genRadio(books) {
   const html = arr.join('');
   return html;
 }
-
+// 名字卡片
 function genNameHtml(obj) {
   if (!obj) {
     return null;
@@ -114,7 +114,6 @@ function initEvents(namer) {
     clearLoading();
   }, false);
 }
-
 
 function main() {
   const namer = new Namer();

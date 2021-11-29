@@ -10,7 +10,7 @@ class Namer {
     this.book = null;
   }
 
-  // TODO
+  // 去掉标签
   formatStr(str) {
     // const res = str.replace(/[\s　 ]/g, '');
     let res = str.replace(/(\s|　|”|“){1,}|<br>|<p>|<\/p>/g, '');
@@ -23,8 +23,8 @@ class Namer {
       return [];
     }
     let str = this.formatStr(content);
-    str = str.replace(/！|。|？|；/g, s => `${s}|`);
-    str = str.replace(/\|$/g, '');
+    str = str.replace(/！|。|？|；/g, s => `${s}|`); // 把标点符号统一替换成 |
+    str = str.replace(/\|$/g, ''); // 把以 | 结尾的替换为空
     let arr = str.split('|');
     arr = arr.filter(item => item.length >= 2);
     return arr;
@@ -35,7 +35,7 @@ class Namer {
     const puncReg = /[<>《》！*\(\^\)\$%~!@#…&%￥—\+=、。，？；‘’“”：·`]/g;
     return str.replace(puncReg, '');
   }
-
+  // 清除肮脏的字
   cleanBadChar(str) {
     const badChars = '胸鬼懒禽鸟鸡我邪罪凶丑仇鼠蟋蟀淫秽妹狐鸡鸭蝇悔鱼肉苦犬吠窥血丧饥女搔父母昏狗蟊疾病痛死潦哀痒害蛇牲妇狸鹅穴畜烂兽靡爪氓劫鬣螽毛婚姻匪婆羞辱'.split('');
     return str.split('').filter(char => badChars.indexOf(char) === -1).join('');
@@ -47,13 +47,14 @@ class Namer {
     }
     // const len = this.book.length;
     try {
-      const passage = rand.choose(this.book);
+      const passage = rand.choose(this.book); // 获取随机一首诗集
       const { content, title, author, book, dynasty } = passage;
       if (!content) {
         return null;
       }
 
-      const sentenceArr = this.splitSentence(content);
+      const sentenceArr = this.splitSentence(content); // 每一句古诗的数组
+      console.log(sentenceArr,'sentenceArr');
 
       if (!(Array.isArray(sentenceArr) && sentenceArr.length > 0)) {
         return null;
@@ -63,9 +64,9 @@ class Namer {
       //   log({ passage, sentenceArr });
       // }
 
-      const sentence = rand.choose(sentenceArr);
+      const sentence = rand.choose(sentenceArr);// 每一句古诗数组中随机取一句
 
-
+      
       const cleanSentence = this.cleanBadChar(this.cleanPunctuation(sentence));
       if (cleanSentence.length <= 2) {
         return null;
@@ -93,6 +94,7 @@ class Namer {
 
   getTwoChar(arr) {
     const len = arr.length;
+    debugger;
     const first = rand.between(0, len);
     let second = rand.between(0, len);
     let cnt = 0;

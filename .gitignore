@@ -2,3 +2,7 @@ node_modules
 # dist
 # dest
 .DS_Store
+.idea/
+
+# dependencies
+/node_modules
