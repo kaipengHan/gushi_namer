@@ -49,7 +49,7 @@ function genNameHtml(obj) {
         </div>
       </li>`;
 }
-
+//  300ms的加载时间
 function setLoading() {
   const interval = 300;
   timer = setTimeout(() => {
@@ -83,7 +83,7 @@ function createRadioGroup() {
 }
 
 function loadBook(namer) {
-  const book = $("input[name='book']:checked").val();
+  const book = $("input[name='book']:checked").val(); // 当前选择的书
   setLoading();
   namer.loadBook(book, () => {
     clearLoading();
@@ -92,11 +92,16 @@ function loadBook(namer) {
 
 
 function initEvents(namer) {
+  // 书籍切换
   $('input[name=\'book\']').change((e) => {
     loadBook(namer);
   });
 
+  // $('input[name=\'book\']').trigger((e) => {
+  //   loadBook(namer);
+  // });
 
+  // 点击起名
   sel('.btn-go').addEventListener('click', () => {
     setLoading();
     const n = nameAmount;
@@ -114,8 +119,8 @@ function initEvents(namer) {
 function main() {
   const namer = new Namer();
   // namer.loadBook('shijing');
-  createRadioGroup();
-  loadBook(namer);
+  createRadioGroup(); // 书籍单选
+  loadBook(namer); // 加载当前书籍
   // initFirstBook();
   initEvents(namer);
   // setLoading();
